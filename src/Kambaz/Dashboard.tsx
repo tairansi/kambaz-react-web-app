@@ -8,7 +8,7 @@ export default function Dashboard() {
         <div className="wd-dashboard-course">
           <Link to="/Kambaz/Courses/1234/Home"
                 className="wd-dashboard-course-link" >
-            <img src="/images/reactjs.jpg" width={200} />
+            <img src="/images/reactjs.png" width={200} />
             <div>
               <h5> CS1234 React JS </h5>
               <p className="wd-dashboard-course-title">
@@ -17,8 +17,78 @@ export default function Dashboard() {
             </div>
           </Link>
         </div>
-        <div className="wd-dashboard-course"> ... </div>
-        <div className="wd-dashboard-course"> ... </div>
+        <div className="wd-dashboard-course">
+          <Link to="/Kambaz/Courses/3500/Home"
+                className="wd-dashboard-course-link" >
+            <img src="/images/cs3500.jpg" width={200} />
+            <div>
+              <h5> CS3500 </h5>
+              <p className="wd-dashboard-course-title">
+                Object-Oriented Design  </p>
+              <button> Go </button>
+            </div>
+          </Link>
+        </div>
+        <div className="wd-dashboard-course">
+          <Link to="/Kambaz/Courses/3800/Home"
+                className="wd-dashboard-course-link" >
+            <img src="/images/algorithm.jpg" width={200} />
+            <div>
+              <h5> CS3800 </h5>
+              <p className="wd-dashboard-course-title">
+                Algorithm  </p>
+              <button> Go </button>
+            </div>
+          </Link>
+        </div>
+        <div className="wd-dashboard-course">
+          <Link to="/Kambaz/Courses/0001/Home"
+                className="wd-dashboard-course-link" >
+            <img src="/images/java.png" width={200} />
+            <div>
+              <h5> CS0001 </h5>
+              <p className="wd-dashboard-course-title">
+                Java  </p>
+              <button> Go </button>
+            </div>
+          </Link>
+        </div>
+        <div className="wd-dashboard-course">
+          <Link to="/Kambaz/Courses/0002/Home"
+                className="wd-dashboard-course-link" >
+            <img src="/images/python.png" width={200} />
+            <div>
+              <h5> CS0002 </h5>
+              <p className="wd-dashboard-course-title">
+                Python  </p>
+              <button> Go </button>
+            </div>
+          </Link>
+        </div>
+        <div className="wd-dashboard-course">
+          <Link to="/Kambaz/Courses/0003/Home"
+                className="wd-dashboard-course-link" >
+            <img src="/images/C++.png" width={200} />
+            <div>
+              <h5> CS0003 </h5>
+              <p className="wd-dashboard-course-title">
+                C++  </p>
+              <button> Go </button>
+            </div>
+          </Link>
+        </div>
+        <div className="wd-dashboard-course">
+          <Link to="/Kambaz/Courses/0004/Home"
+                className="wd-dashboard-course-link" >
+            <img src="/images/javascript.png" width={200} />
+            <div>
+              <h5> CS0004 </h5>
+              <p className="wd-dashboard-course-title">
+                Javascript  </p>
+              <button> Go </button>
+            </div>
+          </Link>
+        </div>
       </div>
     </div>
 );}
