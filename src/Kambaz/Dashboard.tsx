@@ -1,3 +1,4 @@
+import { Row, Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 export default function Dashboard() {
   return (
@@ -5,90 +6,100 @@ export default function Dashboard() {
       <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
       <h2 id="wd-dashboard-published">Published Courses (12)</h2> <hr />
       <div id="wd-dashboard-courses">
-        <div className="wd-dashboard-course">
-          <Link to="/Kambaz/Courses/1234/Home"
-                className="wd-dashboard-course-link" >
-            <img src="/images/reactjs.png" width={200} />
-            <div>
-              <h5> CS1234 React JS </h5>
-              <p className="wd-dashboard-course-title">
-                Full Stack software developer  </p>
-              <button> Go </button>
-            </div>
-          </Link>
-        </div>
-        <div className="wd-dashboard-course">
-          <Link to="/Kambaz/Courses/3500/Home"
-                className="wd-dashboard-course-link" >
-            <img src="/images/cs3500.jpg" width={200} />
-            <div>
-              <h5> CS3500 </h5>
-              <p className="wd-dashboard-course-title">
-                Object-Oriented Design  </p>
-              <button> Go </button>
-            </div>
-          </Link>
-        </div>
-        <div className="wd-dashboard-course">
-          <Link to="/Kambaz/Courses/3800/Home"
-                className="wd-dashboard-course-link" >
-            <img src="/images/algorithm.jpg" width={200} />
-            <div>
-              <h5> CS3800 </h5>
-              <p className="wd-dashboard-course-title">
-                Algorithm  </p>
-              <button> Go </button>
-            </div>
-          </Link>
-        </div>
-        <div className="wd-dashboard-course">
-          <Link to="/Kambaz/Courses/0001/Home"
-                className="wd-dashboard-course-link" >
-            <img src="/images/java.png" width={200} />
-            <div>
-              <h5> CS0001 </h5>
-              <p className="wd-dashboard-course-title">
-                Java  </p>
-              <button> Go </button>
-            </div>
-          </Link>
-        </div>
-        <div className="wd-dashboard-course">
-          <Link to="/Kambaz/Courses/0002/Home"
-                className="wd-dashboard-course-link" >
-            <img src="/images/python.png" width={200} />
-            <div>
-              <h5> CS0002 </h5>
-              <p className="wd-dashboard-course-title">
-                Python  </p>
-              <button> Go </button>
-            </div>
-          </Link>
-        </div>
-        <div className="wd-dashboard-course">
-          <Link to="/Kambaz/Courses/0003/Home"
-                className="wd-dashboard-course-link" >
-            <img src="/images/C++.png" width={200} />
-            <div>
-              <h5> CS0003 </h5>
-              <p className="wd-dashboard-course-title">
-                C++  </p>
-              <button> Go </button>
-            </div>
-          </Link>
-        </div>
-        <div className="wd-dashboard-course">
-          <Link to="/Kambaz/Courses/0004/Home"
-                className="wd-dashboard-course-link" >
-            <img src="/images/javascript.png" width={200} />
-            <div>
-              <h5> CS0004 </h5>
-              <p className="wd-dashboard-course-title">
-                Javascript  </p>
-              <button> Go </button>
-            </div>
-          </Link>
-        </div>
+        <Row xs={1} md={5} className="g-4" style={{ width: "300px" }}>
+          <Col className="wd-dashboard-course">
+            <Card>
+              <Link to="/Kambaz/Courses/1234/Home"
+                className="wd-dashboard-course-link text-decoration-none text-dark" >
+                <Card.Img variant="top" src="/images/reactjs.png" width="100%" height={160} />
+                <Card.Body>
+                  <Card.Title className="wd-dashboard-course-title">CS1234 React JS</Card.Title>
+                  <Card.Text className="wd-dashboard-course-description">Full Stack software developer</Card.Text>
+                  <Button variant="primary">Go</Button>
+                </Card.Body>
+              </Link>
+            </Card>
+          </Col>
+          <Col className="wd-dashboard-course">
+            <Card>
+              <Link to="/Kambaz/Courses/3500/Home"
+                className="wd-dashboard-course-link text-decoration-none text-dark" >
+                <Card.Img variant="top" src="/images/cs3500.jpg" width="100%" height={160} />
+                <Card.Body>
+                  <Card.Title className="wd-dashboard-course-title">CS3500</Card.Title>
+                  <Card.Text className="wd-dashboard-course-description">Object-Oriented Design</Card.Text>
+                  <Button variant="primary">Go</Button>
+                </Card.Body>
+              </Link>
+            </Card>
+          </Col>
+          <Col className="wd-dashboard-course">
+            <Card>
+              <Link to="/Kambaz/Courses/3800/Home"
+                className="wd-dashboard-course-link text-decoration-none text-dark" >
+                <Card.Img variant="top" src="/images/algorithm.jpg" width="100%" height={160} />
+                <Card.Body>
+                  <Card.Title className="wd-dashboard-course-title">CS3800</Card.Title>
+                  <Card.Text className="wd-dashboard-course-description">Algorithm</Card.Text>
+                  <Button variant="primary">Go</Button>
+                </Card.Body>
+              </Link>
+            </Card>
+          </Col>
+          <Col className="wd-dashboard-course">
+            <Card>
+              <Link to="/Kambaz/Courses/0001/Home"
+                className="wd-dashboard-course-link text-decoration-none text-dark" >
+                <Card.Img variant="top" src="/images/java.png" width="100%" height={160} />
+                <Card.Body>
+                  <Card.Title className="wd-dashboard-course-title">CS0001</Card.Title>
+                  <Card.Text className="wd-dashboard-course-description">Java</Card.Text>
+                  <Button variant="primary">Go</Button>
+                </Card.Body>
+              </Link>
+            </Card>
+          </Col>
+          <Col className="wd-dashboard-course">
+            <Card>
+              <Link to="/Kambaz/Courses/0002/Home"
+                className="wd-dashboard-course-link text-decoration-none text-dark" >
+                <Card.Img variant="top" src="/images/python.png" width="100%" height={160} />
+                <Card.Body>
+                  <Card.Title className="wd-dashboard-course-title">CS0002</Card.Title>
+                  <Card.Text className="wd-dashboard-course-description">Python</Card.Text>
+                  <Button variant="primary">Go</Button>
+                </Card.Body>
+              </Link>
+            </Card>
+          </Col>
+          <Col className="wd-dashboard-course">
+            <Card>
+              <Link to="/Kambaz/Courses/0003/Home"
+                className="wd-dashboard-course-link text-decoration-none text-dark" >
+                <Card.Img variant="top" src="/images/C++.png" width="100%" height={160} />
+                <Card.Body>
+                  <Card.Title className="wd-dashboard-course-title">CS0003</Card.Title>
+                  <Card.Text className="wd-dashboard-course-description">C++</Card.Text>
+                  <Button variant="primary">Go</Button>
+                </Card.Body>
+              </Link>
+            </Card>
+          </Col>
+          <Col className="wd-dashboard-course">
+            <Card>
+              <Link to="/Kambaz/Courses/0004/Home"
+                className="wd-dashboard-course-link text-decoration-none text-dark" >
+                <Card.Img variant="top" src="/images/javascript.png" width="100%" height={160} />
+                <Card.Body>
+                  <Card.Title className="wd-dashboard-course-title">CS0004</Card.Title>
+                  <Card.Text className="wd-dashboard-course-description">Javascript</Card.Text>
+                  <Button variant="primary">Go</Button>
+                </Card.Body>
+              </Link>
+            </Card>
+          </Col>
+        </Row>
       </div>
     </div>
-);}
+  );
+}
