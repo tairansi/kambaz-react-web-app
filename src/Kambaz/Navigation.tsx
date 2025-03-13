@@ -6,6 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import { IoCalendarOutline } from "react-icons/io5";
 import { ListGroup } from "react-bootstrap";
 export default function KambazNavigation() {
+  
    const { pathname } = useLocation();
    const links = [
       { label: "Dashboard", path: "/Kambaz/Dashboard", icon: AiOutlineDashboard },
