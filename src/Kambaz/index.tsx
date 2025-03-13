@@ -35,7 +35,6 @@ export default function Kambaz() {
 
   return (
     <div id="wd-kambaz">
-
       <KambazNavigation />
       <div className="wd-main-content-offset p-3">
         <Routes>
