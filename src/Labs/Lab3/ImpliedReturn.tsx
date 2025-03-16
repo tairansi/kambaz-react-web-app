@@ -10,4 +10,6 @@ export default function ImpliedReturn() {
         multiply(4, 5) = {multiply(4, 5)} <hr />
       </div>
     );
-}
+    
+  }
+  
