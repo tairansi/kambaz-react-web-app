@@ -1,62 +1,36 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { FormControl } from "react-bootstrap";
-import * as client from "./client";
+const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER;
 
-export default function WorkingWithObjectsAsynchronously() {
-  const [assignment, setAssignment] = useState<any>({});
-
-  const fetchAssignment = async () => {
-    const assignment = await client.fetchAssignment();
-    setAssignment(assignment);
-  };
-
-  useEffect(() => {
-    fetchAssignment();
-  }, []);
-
-  const updateTitle = async (newTitle: string) => {
-    const updatedAssignment = await client.updateTitle(newTitle);
-    setAssignment(updatedAssignment);
-  };
-
+export default function WorkingWithObjects() {
+  const [assignment, setAssignment] = useState({
+    id: 1, title: "NodeJS Assignment",
+    description: "Create a NodeJS server with ExpressJS",
+    due: "2021-10-10", completed: false, score: 0,
+    });
+    const ASSIGNMENT_API_URL = `${REMOTE_SERVER}/lab5/assignment`
   return (
-    <div id="wd-asynchronous-objects">
-      <h3>Working with Objects Asynchronously</h3>
-      <h4>Assignment</h4>
-      <FormControl 
-        defaultValue={assignment.title} 
-        className="mb-2"
-        onChange={(e) => setAssignment({ ...assignment, title: e.target.value })} 
-      />
-      <button className="btn btn-primary me-2" onClick={() => updateTitle(assignment.title)}>
+    <div >
+      <h3 id="wd-working-with-objects">Working With Objects</h3>
+      <h4>Modifying Properties</h4>
+        <a id="wd-update-assignment-title"
+        className="btn btn-primary float-end"
+        href={`${ASSIGNMENT_API_URL}/title/${assignment.title}`}>
         Update Title
-      </button>
-      <FormControl 
-        rows={3} 
-        defaultValue={assignment.description} 
-        className="mb-2"
-        onChange={(e) => setAssignment({ ...assignment, description: e.target.value })}
-      />
-      <FormControl 
-        type="date" 
-        className="mb-2" 
-        defaultValue={assignment.due}
-        onChange={(e) => setAssignment({ ...assignment, due: e.target.value })} 
-      />
-      <div className="form-check form-switch">
-        <input 
-          className="form-check-input" 
-          type="checkbox" 
-          id="wd-completed"
-          defaultChecked={assignment.completed}
-          onChange={(e) => setAssignment({ ...assignment, completed: e.target.checked })} 
-        />
-        <label className="form-check-label" htmlFor="wd-completed">
-          Completed
-        </label>
-      </div>
-      <pre>{JSON.stringify(assignment, null, 2)}</pre>
+      </a>
+      <FormControl className="w-75" id="wd-assignment-title"
+        defaultValue={assignment.title} onChange={(e) =>
+        setAssignment({ ...assignment, title: e.target.value })}/>
       <hr />
+      <h4>Retrieving Objects</h4>
+      <a id="wd-retrieve-assignments" className="btn btn-primary"
+         href={`${REMOTE_SERVER}/lab5/assignment`}>
+        Get Assignment
+      </a><hr/>
+      <h4>Retrieving Properties</h4>
+      <a id="wd-retrieve-assignment-title" className="btn btn-primary"
+         href={`${REMOTE_SERVER}/lab5/assignment/title`}>
+        Get Title
+      </a><hr/>
     </div>
-  );
-}
+);}
