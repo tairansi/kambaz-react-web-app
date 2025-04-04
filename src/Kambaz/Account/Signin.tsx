@@ -2,7 +2,7 @@ import * as client from "./client";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setCurrentUser } from "../userReducer";
+import { setCurrentUser } from "./reducer";
 import { FormControl, Button } from "react-bootstrap";
 
 export default function Signin() {
