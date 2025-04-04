@@ -16,6 +16,7 @@ export default function Lab5() {
       </div>
       <hr />
       <EnvironmentVariables />
+      
       <HttpClient />
       <WorkingWithArraysAsynchronously />
       <WorkingWithObjectsAsynchronously />
