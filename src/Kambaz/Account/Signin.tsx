@@ -17,6 +17,7 @@ export default function Signin() {
     navigate("/Kambaz/Dashboard");
   };
   
+  
   return (
     <div id="wd-signin-screen">
       <h1>Sign in</h1>
