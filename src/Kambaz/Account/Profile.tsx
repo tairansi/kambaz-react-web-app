@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as client from "./client";
 import { setCurrentUser } from "./reducer";
-import { FormControl, Button } from "react-bootstrap";
+import { FormControl } from "react-bootstrap";
 
 export default function Profile() {
   const [profile, setProfile] = useState<any>({});
