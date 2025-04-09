@@ -1,19 +1,22 @@
 import { IoEllipsisVertical } from "react-icons/io5";
 import GreenCheckmark from "../Modules/GreenCheckmark";
 import { FaTrash } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { deleteAssignment } from "./reducer";
 import { useState } from "react";
 import AssignmentDeleter from "./AssignmentDeleter";
+import * as client from "./client";
 
 export default function AssignmentControlButtons({ assignmentId }: { assignmentId: string }) {
-  const dispatch = useDispatch();
-     const [show, setShow] = useState(false);
-     const handleClose = () => setShow(false);
-     const handleShow = () => setShow(true);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-  const handleDelete = () => {
-    dispatch(deleteAssignment(assignmentId));
+  const handleDelete = async () => {
+    try {
+      await client.deleteAssignment(assignmentId);
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting assignment:", error);
+    }
   };
 
   return (

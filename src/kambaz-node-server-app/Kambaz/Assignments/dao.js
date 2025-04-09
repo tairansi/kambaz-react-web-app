@@ -1,34 +1,34 @@
-import Database from "../Database/index.js";
-import { v4 as uuidv4 } from "uuid";
+import model from "./model.js";
 
-export function createAssignment(assignment) {
-  const newAssignment = { ...assignment, _id: uuidv4() };
-  Database.assignments = [...Database.assignments, newAssignment];
+export const createAssignment = async (assignment) => {
+  const newAssignment = await model.create(assignment);
   return newAssignment;
-}
+};
 
-export function findAllAssignments() {
-  return Database.assignments;
-}
+export const findAllAssignments = async () => {
+  const assignments = await model.find();
+  return assignments;
+};
 
-export function findAssignmentById(assignmentId) {
-  return Database.assignments.find(
-    (assignment) => assignment._id === assignmentId
-  );
-}
-
-export function updateAssignment(assignmentId, assignmentUpdates) {
-  const assignment = Database.assignments.find(
-    (assignment) => assignment._id === assignmentId
-  );
-  if (assignment) {
-    Object.assign(assignment, assignmentUpdates);
-  }
+export const findAssignmentById = async (assignmentId) => {
+  const assignment = await model.findById(assignmentId);
   return assignment;
-}
+};
 
-export function deleteAssignment(assignmentId) {
-  Database.assignments = Database.assignments.filter(
-    (assignment) => assignment._id !== assignmentId
+export const findAssignmentsForCourse = async (courseId) => {
+  const assignments = await model.find({ course: courseId });
+  return assignments;
+};
+
+export const updateAssignment = async (assignmentId, assignmentUpdates) => {
+  const status = await model.updateOne(
+    { _id: assignmentId },
+    { $set: assignmentUpdates }
   );
-} 
+  return status;
+};
+
+export const deleteAssignment = async (assignmentId) => {
+  const status = await model.deleteOne({ _id: assignmentId });
+  return status;
+}; 

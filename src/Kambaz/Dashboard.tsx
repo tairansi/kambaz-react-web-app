@@ -2,22 +2,23 @@ import { Row, Col, Card, Button, FormControl, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import * as db from "./Database";
-import { useState } from "react";
+// import { useState } from "react";
 import { enrollCourse, unenrollCourse } from "./Courses/enrollmentReducer";
 
 
 export default function Dashboard(
   { courses, course, setCourse, addNewCourse,
-    deleteCourse, updateCourse }: {
+    deleteCourse, updateCourse, enrolling, setEnrolling, updateEnrollment }: {
     courses: any[]; course: any; setCourse: (course: any) => void;
     addNewCourse: () => void; deleteCourse: (course: any) => void;
-    updateCourse: () => void; })
+    updateCourse: () => void; enrolling: boolean; setEnrolling: (enrolling: boolean) => void; 
+    updateEnrollment: (courseId: string, enrolled: boolean) => void; })
    {
   
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const { enrollments } = db;
     const dispatch = useDispatch();
-    const [enrolledin, setEnrolledin] = useState(false);
+    // const [enrolledin, setEnrolledin] = useState(false);
 
     const handleEnrollment = (courseId: string) => {
       const isEnrolled = enrollments.some(
@@ -34,10 +35,12 @@ export default function Dashboard(
 
   return (
     <div id="wd-dashboard">
-      <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
-      <button className="btn btn-primary float-end"
-                  id="wd-add-new-course-click"
-                  onClick={() => setEnrolledin(!enrolledin)}> Enrollments </button>
+      <h1 id="wd-dashboard-title">
+        Dashboard
+        <button onClick={() => setEnrolling(!enrolling)} className="float-end btn btn-primary" >
+          {enrolling ? "My Courses" : "All Courses"}
+        </button>
+      </h1> <hr />
       {currentUser.role === 'FACULTY' && <><h5>New Course
         <button className="btn btn-primary float-end me-2"
           id="wd-add-new-course-click"
@@ -54,12 +57,12 @@ export default function Dashboard(
       <div id="wd-dashboard-courses">
         <Row xs={1} md={5} className="g-4">
           {courses
-            .filter((course) => 
-              !enrolledin || enrollments.some(
-                (enrollment: { user: any; course: any; }) =>
-                  enrollment.user === currentUser._id &&
-                  enrollment.course === course._id
-              ))
+            // .filter((course) => 
+            //   !enrolledin || enrollments.some(
+            //     (enrollment: { user: any; course: any; }) =>
+            //       enrollment.user === currentUser._id &&
+            //       enrollment.course === course._id
+            //   ))
             .map((course) => (
               <Col className="wd-dashboard-course" style={{ width: "300px" }}>
                 <Card>
@@ -68,6 +71,15 @@ export default function Dashboard(
                     <Card.Img src={`/images/${course.number}.jpg`} variant="top" width="100%" height={160} />
                     <Card.Body className="card-body">
                       <Card.Title className="wd-dashboard-course-title text-nowrap overflow-hidden">
+                        {enrolling && (
+                          <button onClick={(event) => {
+                        event.preventDefault();
+                        updateEnrollment(course._id, !course.enrolled);
+                      }}
+                      className={`btn ${ course.enrolled ? "btn-danger" : "btn-success" } float-end`} >
+                            {course.enrolled ? "Unenroll" : "Enroll"}
+                          </button>
+                        )}
                         {course.name} </Card.Title>
                       <Card.Text className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
                         {course.description} </Card.Text>

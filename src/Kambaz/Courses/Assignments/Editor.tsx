@@ -1,35 +1,66 @@
 import { Button, Form, FormControl, InputGroup, Table } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router";
-import * as db from "../../Database";
-import { useDispatch } from "react-redux";
-import { addAssignment } from "./reducer";
+import { useEffect, useState } from "react";
+import * as client from "./client";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
-  const assignment = db.assignments.find((assignment) => assignment._id === aid);
+  const [assignment, setAssignment] = useState({
+    title: "",
+    description: "",
+    points: 0,
+    dueDate: "",
+    availableFrom: "",
+    availableUntil: "",
+    course: cid,
+  });
   
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSave = () => {
-    dispatch(addAssignment(assignment));
-    navigate(`/Kambaz/Courses/${cid}/Assignments`);
+  useEffect(() => {
+    const fetchAssignment = async () => {
+      if (!aid) return;
+      try {
+        const fetchedAssignment = await client.findAssignmentById(aid);
+        setAssignment(fetchedAssignment);
+      } catch (error) {
+        console.error("Error fetching assignment:", error);
+      }
+    };
+    fetchAssignment();
+  }, [aid]);
+
+  const handleSave = async () => {
+    if (!aid) return;
+    try {
+      await client.updateAssignment(assignment);
+      navigate(`/Kambaz/Courses/${cid}/Assignments`);
+    } catch (error) {
+      console.error("Error updating assignment:", error);
+    }
   };
 
   const handleCancel = () => {
     navigate(`/Kambaz/Courses/${cid}/Assignments`);
   };
 
-    return (
-      <div id="wd-assignments-editor">
-        <label htmlFor="wd-name">Assignment Name</label><br />
-        <InputGroup className="mb-3" id="wd-name">
-          <FormControl value={assignment?.title} />
-        </InputGroup>
-        <InputGroup className="mb-3" id="wd-name">
-          <FormControl as="textarea" value={"The assignment is available online \nSubmit a link to the landing page of your Web application running on Netlify. The landing page should include the following: \n• Your full name and section \n• Links to each of the lab assignments \n• Link to the Kanbas application \n• Links to all relevant source code repositories \nThe Kanbas application should include a link to navigate back to the landing page."} />
-        </InputGroup>
-        
+  return (
+    <div id="wd-assignments-editor">
+      <label htmlFor="wd-name">Assignment Name</label><br />
+      <InputGroup className="mb-3" id="wd-name">
+        <FormControl 
+          value={assignment.title} 
+          onChange={(e) => setAssignment({ ...assignment, title: e.target.value })}
+        />
+      </InputGroup>
+      <InputGroup className="mb-3" id="wd-description">
+        <FormControl 
+          as="textarea" 
+          value={assignment.description}
+          onChange={(e) => setAssignment({ ...assignment, description: e.target.value })}
+        />
+      </InputGroup>
+      
       <Table className="no-table-border">
         <tbody>
           <tr>
@@ -37,69 +68,51 @@ export default function AssignmentEditor() {
               <Form.Label htmlFor="wd-points">Points</Form.Label>
             </td>
             <td>
-              <Form.Control id="wd-points" type="number" value={100} />
+              <Form.Control 
+                id="wd-points" 
+                type="number" 
+                value={assignment.points}
+                onChange={(e) => setAssignment({ ...assignment, points: parseInt(e.target.value) })}
+              />
             </td>
           </tr>
-          <tr>
-            <td align="right" valign="top">
-              <Form.Label htmlFor="wd-group">Assignment Group</Form.Label>
-            </td>
-            <td>
-              <Form.Control as="select" id="wd-group" defaultValue="GroupA">
-                <option value="GroupA">ASSIGNMENTS </option>
-              </Form.Control>
-            </td>
-          </tr>
-          <tr>
-            <td align="right" valign="top">
-              <Form.Label htmlFor="wd-display-grade-as">Display Grade as</Form.Label>
-            </td>
-            <td>
-              <Form.Control as="select" id="wd-display-grade-as" defaultValue="Percentage">
-                <option value="Percentage">Percentage</option>
-              </Form.Control>
-            </td>
-          </tr>
-          <tr>
-            <td align="right" valign="top">
-              <Form.Label htmlFor="wd-select-many-genre">Submission Type</Form.Label>
-            </td>
-            <td className="bordered-box">
-              <Form.Control as="select" id="wd-display-grade-as" defaultValue="Percentage">
-                <option value="Online">Online</option>
-              </Form.Control>
-              <p className="pt-3"><b>Online Form Options</b></p>
-              <Form.Check className="pb-3"type="checkbox" id="wd-text-entry" label="Text Entry" />
-              <Form.Check className="pb-3" type="checkbox" id="wd-website-url" label="Website URL" />
-              <Form.Check className="pb-3" type="checkbox" id="wd-media-recordings" label="Media Recordings" />
-              <Form.Check className="pb-3" type="checkbox" id="wd-student-annotation" label="Student Annotation" />
-              <Form.Check type="checkbox" id="wd-file-upload" label="File Uploads" />
-            </td>
-          </tr>
-          <br></br>
           <tr>
             <td align="right" valign="top">
               <Form.Label htmlFor="wd-assign-to">Assign</Form.Label>
             </td>
             <td className="bordered-box">
-              <Form.Label htmlFor="wd-assign-to"><b>Assign to</b></Form.Label>
-              <Form.Control id="wd-assign-to" type="text" value="Everyone" />
               <Form.Label className="pt-3" htmlFor="wd-due-date"><b>Due</b></Form.Label>
-              <Form.Control type="date" id="wd-due-date" value="2024-05-13" />
+              <Form.Control 
+                type="date" 
+                id="wd-due-date" 
+                value={assignment.dueDate}
+                onChange={(e) => setAssignment({ ...assignment, dueDate: e.target.value })}
+              />
               <Form.Label className="pt-3" htmlFor="wd-available-from"><b>Available from</b></Form.Label>
-              <Form.Control type="date" id="wd-available-from" value="2024-05-06" />
+              <Form.Control 
+                type="date" 
+                id="wd-available-from" 
+                value={assignment.availableFrom}
+                onChange={(e) => setAssignment({ ...assignment, availableFrom: e.target.value })}
+              />
               <Form.Label className="pt-3" htmlFor="wd-available-until"><b>Until</b></Form.Label>
-              <Form.Control type="date" id="wd-available-until" />
+              <Form.Control 
+                type="date" 
+                id="wd-available-until" 
+                value={assignment.availableUntil}
+                onChange={(e) => setAssignment({ ...assignment, availableUntil: e.target.value })}
+              />
             </td>
           </tr>
         </tbody>
       </Table>
       <br />
       <Button variant="secondary" onClick={handleSave}>
-          Save
-        </Button>
-        <Button variant="danger" onClick={handleCancel} className="ms-2">
-          Cancel
-        </Button>    </div>
+        Save
+      </Button>
+      <Button variant="danger" onClick={handleCancel} className="ms-2">
+        Cancel
+      </Button>
+    </div>
   );
 }

@@ -18,6 +18,11 @@ export const findAssignmentById = async (id: string) => {
   return response.data;
 };
 
+export const findAssignmentsForCourse = async (courseId: string) => {
+  const response = await axios.get(`${REMOTE_SERVER}/api/courses/${courseId}/assignments`);
+  return response.data;
+};
+
 export const updateAssignment = async (assignment: any) => {
   const response = await axios.put(
     `${ASSIGNMENTS_API}/${assignment._id}`,
